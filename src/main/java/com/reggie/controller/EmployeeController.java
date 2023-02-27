@@ -2,13 +2,11 @@ package com.reggie.controller;
 
 import com.reggie.common.JsonResponse;
 import com.reggie.entity.Employee;
+import com.reggie.entity.PageResult;
 import com.reggie.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,5 +36,11 @@ public class EmployeeController {
     public JsonResponse<String> save(HttpServletRequest req, @RequestBody Employee employee) {
         employeeService.save(req, employee);
         return JsonResponse.success("新增员工成功");
+    }
+
+    @GetMapping("/page")
+    public JsonResponse<PageResult<Employee>> page(int page, int pageSize, String name) {
+        PageResult<Employee> res = employeeService.page(page, pageSize, name);
+        return JsonResponse.success(res);
     }
 }

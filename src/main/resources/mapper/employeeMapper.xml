@@ -26,4 +26,33 @@
         values (#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime},
                 #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+
+    <select id="getTotalByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1)
+        from employee
+        <if test="name !=null and name!=''">
+            where `name` like concat('%', #{name}, '%')
+        </if>
+    </select>
+
+    <select id="getEmpByNameWithPagination" parameterType="java.util.Map" resultType="com.reggie.entity.Employee">
+        select id,
+        `name`,
+        username,
+        `password`,
+        phone,
+        sex,
+        id_number,
+        `status`,
+        create_time,
+        update_time,
+        create_user,
+        update_user
+        from employee
+        <if test="name !=null and name!=''">
+            where `name` like concat('%', #{name}, '%')
+        </if>
+        order by update_time desc
+        limit #{start}, #{size}
+    </select>
 </mapper>
