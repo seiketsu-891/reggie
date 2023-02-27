@@ -8,13 +8,17 @@ import java.util.Map;
 
 @Mapper
 public interface EmployeeMapper {
-    Employee getEmpByUsername(String username);
+    Employee getByUsername(String username);
 
     void save(Employee employee);
 
     Integer getTotalByName(String name);
 
-    List<Employee> getEmpByNameWithPagination(Map<String, Object> params);
+    List<Employee> getByNameWithPagination(Map<String, Object> params);
 
-    void updateStatusById(Employee employee);
+//    void updateStatusById(Employee employee);
+
+    Employee getById(Long id);
+
+    void update(Employee employee);
 }

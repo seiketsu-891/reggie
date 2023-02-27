@@ -24,7 +24,7 @@ public class EmployeeService {
     public Employee login(HttpServletRequest req, Employee emp) {
         String password = emp.getPassword();
         String encodedPassword = DigestUtils.md5DigestAsHex(password.getBytes());
-        Employee empDb = employeeMapper.getEmpByUsername(emp.getUsername());
+        Employee empDb = employeeMapper.getByUsername(emp.getUsername());
         if (empDb == null || !empDb.getPassword().equals(encodedPassword) || empDb.getStatus() == 0) {
             return null;
         }
@@ -61,7 +61,7 @@ public class EmployeeService {
         List<Employee> list = new ArrayList<>();
         Integer total = employeeMapper.getTotalByName(name);
         if (total > 0) {
-            list = employeeMapper.getEmpByNameWithPagination(params);
+            list = employeeMapper.getByNameWithPagination(params);
         }
 
         PageResult<Employee> pageResult = new PageResult<>(total, list);
@@ -72,6 +72,10 @@ public class EmployeeService {
         Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
         employee.setUpdateUser(empId);
         employee.setUpdateTime(LocalDateTime.now());
-        employeeMapper.updateStatusById(employee);
+        employeeMapper.update(employee);
+    }
+
+    public Employee getById(Long id) {
+        return employeeMapper.getById(id);
     }
 }

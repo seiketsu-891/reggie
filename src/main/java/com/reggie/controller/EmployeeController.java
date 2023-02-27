@@ -46,8 +46,16 @@ public class EmployeeController {
 
     @PutMapping
     public JsonResponse<String> update(HttpServletRequest req, @RequestBody Employee employee) {
-        System.out.println(employee);
         employeeService.update(req, employee);
         return JsonResponse.success("员工信息修改成功");
+    }
+
+    @GetMapping("/{id}")
+    public JsonResponse<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        if (employee == null) {
+            return JsonResponse.error("没有查询到该员工的信息");
+        }
+        return JsonResponse.success(employee);
     }
 }
