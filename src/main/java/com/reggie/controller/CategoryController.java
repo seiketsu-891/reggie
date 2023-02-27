@@ -32,4 +32,10 @@ public class CategoryController {
         categoryService.delById(id);
         return JsonResponse.success("分类信息删除成功");
     }
+
+    @PutMapping
+    public JsonResponse<String> update(HttpServletRequest req, @RequestBody Category category) {
+        categoryService.updateById(req, category);
+        return JsonResponse.success("修改分类信息成功");
+    }
 }

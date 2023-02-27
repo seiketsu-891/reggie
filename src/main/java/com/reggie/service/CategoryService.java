@@ -61,4 +61,11 @@ public class CategoryService {
 
         categoryMapper.delById(id);
     }
+
+    public void updateById(HttpServletRequest req, Category category) {
+        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+        category.setUpdateUser(empId);
+        category.setUpdateTime(LocalDateTime.now());
+        categoryMapper.updateById(category);
+    }
 }

@@ -15,4 +15,6 @@ public interface CategoryMapper {
     List<Category> getAllWithPagination(Map<String, Object> params);
 
     void delById(Long id);
+
+    void updateById(Category category);
 }

@@ -68,11 +68,11 @@ public class EmployeeService {
         return pageResult;
     }
 
-    public void update(HttpServletRequest req, Employee employee) {
+    public void updateById(HttpServletRequest req, Employee employee) {
         Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
         employee.setUpdateUser(empId);
         employee.setUpdateTime(LocalDateTime.now());
-        employeeMapper.update(employee);
+        employeeMapper.updateById(employee);
     }
 
     public Employee getById(Long id) {

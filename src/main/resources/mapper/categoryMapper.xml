@@ -36,4 +36,13 @@
         from category
         where id = #{id}
     </delete>
+    <update id="updateById" parameterType="com.reggie.entity.Category">
+        update category
+        set type        = coalesce(#{type}, type),
+            `name`      = coalesce(#{name}, `name`),
+            sort        = coalesce(#{sort}, sort),
+            update_time = coalesce(#{updateTime}, update_time),
+            update_user=coalesce(#{updateUser}, update_user)
+        where id = #{id}
+    </update>
 </mapper>

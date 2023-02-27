@@ -46,7 +46,7 @@ public class EmployeeController {
 
     @PutMapping
     public JsonResponse<String> update(HttpServletRequest req, @RequestBody Employee employee) {
-        employeeService.update(req, employee);
+        employeeService.updateById(req, employee);
         return JsonResponse.success("员工信息修改成功");
     }
 
