@@ -31,4 +31,9 @@
         order by sort asc
         limit #{start}, #{size}
     </select>
+    <delete id="delById" parameterType="java.lang.Long">
+        delete
+        from category
+        where id = #{id}
+    </delete>
 </mapper>

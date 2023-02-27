@@ -13,4 +13,6 @@ public interface CategoryMapper {
     Integer getTotal();
 
     List<Category> getAllWithPagination(Map<String, Object> params);
+
+    void delById(Long id);
 }

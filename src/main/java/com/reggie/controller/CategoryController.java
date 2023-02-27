@@ -20,10 +20,16 @@ public class CategoryController {
         categoryService.save(req, category);
         return JsonResponse.success("新增分类成功");
     }
-    
+
     @GetMapping("/page")
     public JsonResponse<PageResult<Category>> page(int page, int pageSize) {
         PageResult<Category> res = categoryService.page(page, pageSize);
         return JsonResponse.success(res);
+    }
+
+    @DeleteMapping
+    public JsonResponse<String> delete(Long id) {
+        categoryService.delById(id);
+        return JsonResponse.success("分类信息删除成功");
     }
 }

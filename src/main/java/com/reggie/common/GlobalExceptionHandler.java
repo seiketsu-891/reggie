@@ -24,4 +24,14 @@ public class GlobalExceptionHandler {
         }
         return JsonResponse.error("未知错误");
     }
+
+    /*
+     我之前写的时候，都只写了一个方法，然后在其中对异常的类型进行判断
+     这里的写法其实更清晰
+     */
+    @ExceptionHandler(CustomException.class)
+    public JsonResponse<String> exceptionHandler(CustomException ex) {
+        log.error(ex.getMessage());
+        return JsonResponse.error(ex.getMessage());
+    }
 }

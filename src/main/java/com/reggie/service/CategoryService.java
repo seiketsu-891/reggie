@@ -1,5 +1,6 @@
 package com.reggie.service;
 
+import com.reggie.common.CustomException;
 import com.reggie.constants.EmployeeConstants;
 import com.reggie.entity.Category;
 import com.reggie.entity.PageResult;
@@ -18,6 +19,10 @@ import java.util.Map;
 public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private DishService dishService;
+    @Autowired
+    private SetMealService setMealService;
 
     public void save(HttpServletRequest req, Category category) {
         Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
@@ -43,5 +48,17 @@ public class CategoryService {
 
         PageResult<Category> pageResult = new PageResult<>(total, list);
         return pageResult;
+    }
+
+    public void delById(Long id) {
+        // 先确认当前分类没有关联菜品和套餐；
+        if (dishService.existsByCategoryId(id)) {
+            throw new CustomException("当前分类下关联了菜品，不能删除");
+        }
+        if (setMealService.existsByCategoryId(id)) {
+            throw new CustomException("当前分类下关联了套餐，不能删除");
+        }
+
+        categoryMapper.delById(id);
     }
 }
