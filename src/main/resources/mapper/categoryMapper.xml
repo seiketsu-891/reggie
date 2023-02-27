@@ -14,4 +14,21 @@
                 #{createUser},
                 #{updateUser})
     </insert>
+    <select id="getTotal" resultType="java.lang.Integer">
+        select count(1)
+        from category
+    </select>
+    <select id="getAllWithPagination" parameterType="java.util.Map" resultType="com.reggie.entity.Category">
+        select id,
+               type,
+               `name`,
+               sort,
+               create_time,
+               update_time,
+               create_user,
+               update_user
+        from category
+        order by sort asc
+        limit #{start}, #{size}
+    </select>
 </mapper>
