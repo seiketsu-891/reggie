@@ -28,4 +28,5 @@ public class Employee implements Serializable {
     private LocalDateTime updateTime;
     private Long createUser;
     private Long updateUser;
+
 }

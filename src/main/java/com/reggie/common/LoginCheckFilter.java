@@ -2,6 +2,7 @@ package com.reggie.common;
 
 
 import com.alibaba.fastjson.JSON;
+import com.reggie.constants.EmployeeConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 
@@ -40,7 +41,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
         // 用户已登录
-        if (request.getSession().getAttribute("employee") != null) {
+        if (request.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY) != null) {
             log.info("用户已登录，用户id为: {}", request.getSession().getAttribute("employee"));
             filterChain.doFilter(request, response);
             return;

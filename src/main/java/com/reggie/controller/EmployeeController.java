@@ -22,6 +22,9 @@ public class EmployeeController {
     @PostMapping("/login")
     public JsonResponse<Employee> login(HttpServletRequest req, @RequestBody Employee emp) {
         Employee empLogin = employeeService.login(req, emp);
+        if (empLogin == null) {
+            return JsonResponse.error("用户名密码不匹配");
+        }
         return JsonResponse.success(empLogin);
     }
 
@@ -29,5 +32,11 @@ public class EmployeeController {
     public JsonResponse<String> logout(HttpServletRequest req) {
         employeeService.logout(req);
         return JsonResponse.success("退出成功");
+    }
+
+    @PostMapping
+    public JsonResponse<String> save(HttpServletRequest req, @RequestBody Employee employee) {
+        employeeService.save(req, employee);
+        return JsonResponse.success("新增员工成功");
     }
 }
