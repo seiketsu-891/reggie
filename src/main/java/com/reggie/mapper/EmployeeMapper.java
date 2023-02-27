@@ -15,4 +15,6 @@ public interface EmployeeMapper {
     Integer getTotalByName(String name);
 
     List<Employee> getEmpByNameWithPagination(Map<String, Object> params);
+
+    void updateStatusById(Employee employee);
 }

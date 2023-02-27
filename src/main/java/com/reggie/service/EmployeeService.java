@@ -67,4 +67,11 @@ public class EmployeeService {
         PageResult<Employee> pageResult = new PageResult<>(total, list);
         return pageResult;
     }
+
+    public void update(HttpServletRequest req, Employee employee) {
+        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+        employee.setUpdateUser(empId);
+        employee.setUpdateTime(LocalDateTime.now());
+        employeeMapper.updateStatusById(employee);
+    }
 }

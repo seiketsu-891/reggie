@@ -43,4 +43,11 @@ public class EmployeeController {
         PageResult<Employee> res = employeeService.page(page, pageSize, name);
         return JsonResponse.success(res);
     }
+
+    @PutMapping
+    public JsonResponse<String> update(HttpServletRequest req, @RequestBody Employee employee) {
+        System.out.println(employee);
+        employeeService.update(req, employee);
+        return JsonResponse.success("员工信息修改成功");
+    }
 }

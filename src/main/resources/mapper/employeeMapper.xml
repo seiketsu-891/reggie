@@ -39,7 +39,6 @@
         select id,
         `name`,
         username,
-        `password`,
         phone,
         sex,
         id_number,
@@ -55,4 +54,11 @@
         order by update_time desc
         limit #{start}, #{size}
     </select>
+    <update id="updateStatusById" parameterType="com.reggie.entity.Employee">
+        update employee
+        set `status`    =#{status},
+            update_time = #{updateTime},
+            update_user = #{updateUser}
+        where id = #{id}
+    </update>
 </mapper>
