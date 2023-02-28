@@ -8,4 +8,11 @@
         from dish
         where category_id = #{categoryId}
     </select>
+    <insert id="save" parameterType="com.reggie.entity.Dish" useGeneratedKeys="true" keyProperty="id">
+        insert into dish
+        (`name`, category_id, price, `code`, image, `description`, create_time, update_time, create_user, update_user)
+        values (#{name}, #{categoryId}, #{price}, #{code}, #{image},
+                #{description}, #{createTime}, #{updateTime}, #{createUser},
+                #{updateUser})
+    </insert>
 </mapper>

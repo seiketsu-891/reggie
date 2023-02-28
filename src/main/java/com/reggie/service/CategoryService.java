@@ -64,4 +64,8 @@ public class CategoryService {
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.updateById(category);
     }
+
+    public List<Category> getByType(Integer type) {
+        return categoryMapper.getByType(type);
+    }
 }

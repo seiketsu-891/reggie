@@ -8,6 +8,8 @@ import com.reggie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -41,4 +43,12 @@ public class CategoryController {
         categoryService.updateById(category, empId);
         return JsonResponse.success("修改分类信息成功");
     }
+
+    @GetMapping("/list")
+    public JsonResponse<List<Category>> list(Integer type) {
+        List<Category> list = categoryService.getByType(type);
+        return JsonResponse.success(list);
+    }
+
+
 }

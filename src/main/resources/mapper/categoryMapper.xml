@@ -45,4 +45,17 @@
             update_user=coalesce(#{updateUser}, update_user)
         where id = #{id}
     </update>
+    <select id="getByType" parameterType="java.lang.Integer" resultType="com.reggie.entity.Category">
+        select id,
+               type,
+               `name`,
+               sort,
+               create_time,
+               update_time,
+               create_user,
+               update_user
+        from category
+        where type = #{type}
+    </select>
+
 </mapper>
