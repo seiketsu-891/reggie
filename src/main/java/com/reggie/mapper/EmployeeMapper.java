@@ -10,7 +10,7 @@ import java.util.Map;
 public interface EmployeeMapper {
     Employee getByUsername(String username);
 
-    void save(Employee employee);
+    Integer save(Employee employee);
 
     Integer getTotalByName(String name);
 
@@ -20,5 +20,5 @@ public interface EmployeeMapper {
 
     Employee getById(Long id);
 
-    void updateById(Employee employee);
+    Integer updateById(Employee employee);
 }

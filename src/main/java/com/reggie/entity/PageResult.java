@@ -6,6 +6,9 @@ public class PageResult<T> {
     private Integer total;
     private List<T> records;
 
+    public PageResult() {
+    }
+
     public PageResult(Integer total, List<T> list) {
         this.total = total;
         this.records = list;
