@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,23 +20,23 @@ public class EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public Employee login(HttpServletRequest req, Employee emp) {
+    public Employee login(Employee emp, HttpSession session) {
         String password = emp.getPassword();
         String encodedPassword = DigestUtils.md5DigestAsHex(password.getBytes());
         Employee empDb = employeeMapper.getByUsername(emp.getUsername());
         if (empDb == null || !empDb.getPassword().equals(encodedPassword) || empDb.getStatus() == 0) {
             return null;
         }
-        HttpSession session = req.getSession();
         session.setAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY, empDb.getId());
         return empDb;
     }
 
-    public void logout(HttpServletRequest req) {
-        req.getSession().removeAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
-    }
+    // 这里只涉及到req的处理，没有业务逻辑，可以直接放到controller中
+    //    public void logout(HttpServletRequest req) {
+    //        req.getSession().removeAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+    //    }
 
-    public void save(HttpServletRequest req, Employee employee) {
+    public void save(Employee employee, Long empId) {
         // 密码加密
         employee.setPassword(DigestUtils.md5DigestAsHex(EmployeeConstants.DEFAULT_PASSWORD.getBytes()));
         LocalDateTime now = LocalDateTime.now();
@@ -45,7 +44,6 @@ public class EmployeeService {
         employee.setCreateTime(now);
         employee.setUpdateTime(now);
         employee.setStatus(1);
-        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
         employee.setCreateUser(empId);
         employee.setUpdateUser(empId);
         employeeMapper.save(employee);
@@ -68,8 +66,7 @@ public class EmployeeService {
         return pageResult;
     }
 
-    public void updateById(HttpServletRequest req, Employee employee) {
-        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+    public void updateById(Employee employee, Long empId) {
         employee.setUpdateUser(empId);
         employee.setUpdateTime(LocalDateTime.now());
         employeeMapper.updateById(employee);

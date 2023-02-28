@@ -1,14 +1,12 @@
 package com.reggie.service;
 
 import com.reggie.common.CustomException;
-import com.reggie.constants.EmployeeConstants;
 import com.reggie.entity.Category;
 import com.reggie.entity.PageResult;
 import com.reggie.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,8 +22,7 @@ public class CategoryService {
     @Autowired
     private SetMealService setMealService;
 
-    public void save(HttpServletRequest req, Category category) {
-        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+    public void save(Category category, Long empId) {
         LocalDateTime now = LocalDateTime.now();
         category.setCreateUser(empId);
         category.setUpdateUser(empId);
@@ -62,8 +59,7 @@ public class CategoryService {
         categoryMapper.delById(id);
     }
 
-    public void updateById(HttpServletRequest req, Category category) {
-        Long empId = (Long) req.getSession().getAttribute(EmployeeConstants.SESSION_EMPLOYEE_ID_KEY);
+    public void updateById(Category category, Long empId) {
         category.setUpdateUser(empId);
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.updateById(category);
