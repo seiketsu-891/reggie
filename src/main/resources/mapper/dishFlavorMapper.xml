@@ -17,4 +17,22 @@
             #{f.updateUser}
         </foreach>
     </insert>
+    <select id="getByDishId" parameterType="java.lang.Long" resultType="com.reggie.entity.DishFlavor">
+        select id,
+               dish_id,
+               `name`,
+               `value`,
+               create_time,
+               update_time,
+               create_user,
+               update_user,
+               is_deleted
+        from dish_flavor
+        where dish_id = #{dishId}
+    </select>
+    <delete id="removeByDishId" parameterType="java.lang.Long">
+        delete
+        from dish_flavor
+        where dish_id = #{dishId}
+    </delete>
 </mapper>

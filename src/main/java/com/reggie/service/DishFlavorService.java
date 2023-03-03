@@ -15,4 +15,12 @@ public class DishFlavorService {
     public void saveBatch(List<DishFlavor> flavors) {
         dishFlavorMapper.saveBatch(flavors);
     }
+
+    public List<DishFlavor> getByDishId(Long dishId) {
+        return dishFlavorMapper.getByDishId(dishId);
+    }
+
+    public void removeByDishId(Long dishId) {
+        dishFlavorMapper.removeByDishId(dishId);
+    }
 }

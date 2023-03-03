@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface DishFlavorMapper {
     void saveBatch(List<DishFlavor> flavors);
+
+    List<DishFlavor> getByDishId(Long dishId);
+
+    void removeByDishId(Long dishId);
 }

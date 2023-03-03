@@ -19,4 +19,6 @@ public interface CategoryMapper {
     void updateById(Category category);
 
     List<Category> getByType(Integer type);
+
+    Category getById(Long id);
 }

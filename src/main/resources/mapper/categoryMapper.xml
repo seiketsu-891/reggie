@@ -57,5 +57,16 @@
         from category
         where type = #{type}
     </select>
-
+    <select id="getById" parameterType="java.lang.Long" resultType="com.reggie.entity.Category">
+        select id,
+               type,
+               `name`,
+               sort,
+               create_time,
+               update_time,
+               create_user,
+               update_user
+        from category
+        where id = #{id}
+    </select>
 </mapper>

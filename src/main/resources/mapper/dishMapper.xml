@@ -15,4 +15,63 @@
                 #{description}, #{createTime}, #{updateTime}, #{createUser},
                 #{updateUser})
     </insert>
+    <select id="countByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1)
+        from dish
+        <if test="name !=null and name !=''">
+            where name like concat('%', #{name}, '%')
+        </if>
+    </select>
+    <select id="getByNameWithPagination" parameterType="java.util.Map" resultType="com.reggie.entity.Dish">
+        select id,
+        `name`,
+        category_id,
+        price,
+        `code`,
+        image,
+        `description`,
+        `status`,
+        sort,
+        create_time,
+        update_time,
+        create_user,
+        update_user,
+        is_deleted
+        from dish
+        <if test="name != null and name != ''">
+            where name like concat('%', #{name}, '%')
+        </if>
+        order by update_time desc
+        limit #{start}, #{size}
+    </select>
+    <select id="getById" parameterType="java.lang.Long" resultType="com.reggie.entity.Dish">
+        select id,
+               `name`,
+               category_id,
+               price,
+               `code`,
+               image,
+               `description`,
+               `status`,
+               sort,
+               create_time,
+               update_time,
+               create_user,
+               update_user
+        from dish
+        where id = #{id}
+    </select>
+    <update id="updateById" parameterType="com.reggie.entity.Dish">
+        update dish
+        set `name`        = coalesce(#{name}, `name`),
+            category_id   = coalesce(#{categoryId}, category_id),
+            `code`        = coalesce(#{code}, `code`),
+            image         = coalesce(#{image}, image),
+            `description` = coalesce(#{description}, `description`),
+            `status`      = coalesce(#{status}, `status`),
+            sort          = coalesce(#{sort}, sort),
+            update_time   = coalesce(#{updateTime}, update_time),
+            update_user   = coalesce(#{updateUser}, update_user)
+        where id = #{id}
+    </update>
 </mapper>

@@ -68,4 +68,8 @@ public class CategoryService {
     public List<Category> getByType(Integer type) {
         return categoryMapper.getByType(type);
     }
+
+    public Category getByItd(Long catId) {
+        return categoryMapper.getById(catId);
+    }
 }
